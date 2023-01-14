@@ -7,4 +7,5 @@ module projectoop {
 
     opens projectoop to javafx.fxml;
     exports projectoop;
+    exports Model;
 }

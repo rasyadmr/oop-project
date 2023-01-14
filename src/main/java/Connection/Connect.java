@@ -1,4 +1,4 @@
-package projectoop;
+package Connection;
 
 import java.sql.*;
 

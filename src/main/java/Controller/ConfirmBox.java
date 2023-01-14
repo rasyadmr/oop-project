@@ -1,4 +1,4 @@
-package projectoop;
+package Controller;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
