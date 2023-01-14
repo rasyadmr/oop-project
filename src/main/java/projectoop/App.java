@@ -1,6 +1,9 @@
 package projectoop;
 
+import java.util.*;
+import Model.*;
 import Controller.AlertBox;
+import Helper.UserHelper;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,17 +13,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
     Stage window;
+    ArrayList<Account> dataUser = new ArrayList<>();
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setTitle("VacationID");
+        window.setTitle("TicketID");
 
         GridPane grid = new GridPane();
         grid.setCenterShape(false);
@@ -28,22 +36,26 @@ public class App extends Application {
         grid.setHgap(10);
         grid.setVgap(5);
         grid.setAlignment(Pos.CENTER);
-
-        //username
-        Label emailLabel = new Label("VacationId");
-        GridPane.setConstraints(emailLabel, 0, 0);
+        
+        ImageView imageview = new ImageView("logo.png");
+        imageview.setFitHeight(146);
+        imageview.setFitWidth(175);
+        GridPane.setConstraints(imageview, 0, 0);
         
         //button
         Button loginButton = new Button("Login");
-        GridPane.setConstraints(loginButton, 0, 1);
+        // loginButton.minWidth(50);
+        GridPane.setConstraints(loginButton, 1, 0);
         loginButton.setOnAction(e -> goToLoginUI());
         
         Button registerButton = new Button("Register");
-        GridPane.setConstraints(registerButton, 0, 2);
+        // registerButton.minWidth(50);
+        GridPane.setConstraints(registerButton, 2, 0);
         registerButton.setOnAction(e -> goToRegisterUI());
 
-        grid.getChildren().addAll(emailLabel, loginButton, registerButton);
-        
+        grid.getChildren().addAll(imageview, loginButton, registerButton);
+        grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
         Scene scene = new Scene(grid, 640, 360);
         window.setScene(scene);
         window.getIcons().add(new Image("logo.png")); 
@@ -52,7 +64,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
     public void validateAccount(String email, String password) {
@@ -82,6 +94,7 @@ public class App extends Application {
         grid.setAlignment(Pos.CENTER);
         
         grid.getChildren().addAll(usernameLabel, passwordLabel);
+        grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
         
         Scene scene = new Scene(grid, 640, 360);
         window.setScene(scene);
@@ -122,6 +135,7 @@ public class App extends Application {
         GridPane.setConstraints(registerButton, 1, 3);
 
         grid.getChildren().addAll(emailLabel, emailInput, passwordLabel, passwordInput, loginButton, registerButton);
+        grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
         
         Scene scene = new Scene(grid, 640, 360);
         window.setScene(scene);
@@ -161,11 +175,13 @@ public class App extends Application {
         //button
         Button loginButton = new Button("Back to login menu");
         GridPane.setConstraints(loginButton, 1, 3);
+        loginButton.setOnAction(e -> goToLoginUI());
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1, 4);
         registerButton.setOnAction(e -> validateAccount(emailInput.getText(), passwordInput.getText()));
 
         grid.getChildren().addAll(emailLabel, emailInput, usernameLabel, usernameInput, passwordLabel, passwordInput, loginButton, registerButton);
+        grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
         Scene scene = new Scene(grid, 640, 360);
         window.setScene(scene);

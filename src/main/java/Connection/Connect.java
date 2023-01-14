@@ -5,7 +5,7 @@ import java.sql.*;
 public class Connect {
 	private final String USERNAME = "root";
 	private final String PASSWORD = "";
-	private final String DATABASE = "vacationid";
+	private final String DATABASE = "ticketid";
 	private final String HOST = "localhost:3306";
 	private final String CONNECTION = String.format("jdbc:mysql://%s/%s", HOST, DATABASE);
 	
