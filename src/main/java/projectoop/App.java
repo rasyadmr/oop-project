@@ -1,9 +1,8 @@
 package projectoop;
 
 import java.util.*;
+import Helper.AccountHelper;
 import Model.*;
-import Controller.AlertBox;
-import Helper.UserHelper;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,6 +23,7 @@ public class App extends Application {
 
     Stage window;
     ArrayList<Account> dataUser = new ArrayList<>();
+    Account userSession;
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -68,22 +68,22 @@ public class App extends Application {
     }
 
     public void validateAccount(String email, String password) {
-        if (email.endsWith("@gmail.com") == true)
-        {
-            appUI(email, password);
-        }
-        else
-        {
-            AlertBox.display("Wrong Email Format Alert", "Please input your email with format @gmail.com");
+        AccountHelper accountHelper = new AccountHelper();
+
+        if (accountHelper.logging(dataUser, email, password)) {
+            userSession = new Account(email, password);
+            appUI();
+        } else {
+            goToLoginUI();
         }
     }
     
-    public void appUI(String username, String password)
+    public void appUI()
     {
-        Label usernameLabel = new Label(username);
+        Label usernameLabel = new Label(userSession.getEmail());
         GridPane.setConstraints(usernameLabel, 0, 0);
 
-        Label passwordLabel = new Label(password);
+        Label passwordLabel = new Label(userSession.getPassword());
         GridPane.setConstraints(passwordLabel, 0, 1);
         
         GridPane grid = new GridPane();

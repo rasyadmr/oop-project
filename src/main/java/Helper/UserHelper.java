@@ -14,7 +14,7 @@ public class UserHelper {
         Connect database = new Connect();
         database.executeUpdate(query);
         
-        dataUser.add(new User(email, password, username, phoneNumber, query));
+        dataUser.add(new User(email, password, username, phoneNumber, "Normal"));
         System.out.println("User created!");
         return dataUser;
     }

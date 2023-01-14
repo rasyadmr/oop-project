@@ -3,9 +3,11 @@ module projectoop {
     requires transitive javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
-    
 
     opens projectoop to javafx.fxml;
     exports projectoop;
     exports Model;
+    exports Helper;
+    exports Components;
+    exports Connection;
 }
