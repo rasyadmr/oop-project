@@ -2,12 +2,8 @@ package projectoop;
 
 import Controller.AlertBox;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,8 +11,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -104,22 +98,21 @@ public class App extends Application {
         grid.setVgap(5);
         grid.setAlignment(Pos.CENTER);
 
-        //username
+        // Username
         Label emailLabel = new Label("Email: ");
         GridPane.setConstraints(emailLabel, 0, 0);
         TextField emailInput = new TextField();
         emailInput.setPromptText("Username");
         GridPane.setConstraints(emailInput, 1, 0);
-        String email = emailInput.getText();
         
-        //pw
+        // Password
         Label passwordLabel = new Label("Password: ");
         GridPane.setConstraints(passwordLabel, 0, 1);
         PasswordField passwordInput = new PasswordField();
         passwordInput.setPromptText("Password");
         GridPane.setConstraints(passwordInput, 1, 1);
         
-        //button
+        // Button
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e -> validateAccount(emailInput.getText(), passwordInput.getText()));
         
