@@ -4,9 +4,11 @@ import java.util.*;
 import Components.*;
 import Helper.*;
 import Model.*;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,10 +20,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class App extends Application {
     Stage window;
@@ -55,20 +63,32 @@ public class App extends Application {
         ImageView imageview = new ImageView("logo.png");
         imageview.setFitHeight(146);
         imageview.setFitWidth(175);
-        GridPane.setConstraints(imageview, 0, 0);
+
+        RotateTransition rotate = new RotateTransition();
+        rotate.setDuration(new Duration(10000));
+        rotate.setNode(imageview);
+        rotate.setByAngle(360);
+        rotate.setCycleCount(1000);
+        rotate.setAutoReverse(true);
+        rotate.play();
+
+        Group image = new Group(imageview);
+        GridPane.setConstraints(image, 0, 0);
         
         //button
         Button loginButton = new Button("Login");
-        // loginButton.minWidth(50);
+        loginButton.setMinWidth(100);
+        loginButton.setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         GridPane.setConstraints(loginButton, 1, 0);
         loginButton.setOnAction(e -> goToLoginUI());
         
         Button registerButton = new Button("Register");
-        // registerButton.minWidth(50);
+        registerButton.setMinWidth(100);
+        registerButton.setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         GridPane.setConstraints(registerButton, 2, 0);
         registerButton.setOnAction(e -> goToRegisterUI());
 
-        grid.getChildren().addAll(imageview, loginButton, registerButton);
+        grid.getChildren().addAll(image, loginButton, registerButton);
         grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
         Scene scene = new Scene(grid, 640, 360);
