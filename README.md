@@ -1,4 +1,4 @@
-![Logo](/../src/main/java/logo.png)
+![Logo](./src/main/java/logo.png)
 
 
 # TicketID
@@ -26,25 +26,25 @@ https://github.com/rasyadmr/oop-project.git
 ## Files
 
 #### Components
-##### AlertBox.java
-##### ConfirmBox.java
-##### Table.java
+- AlertBox.java
+- ConfirmBox.java
+- Table.java
 #### Connection
-##### Connect.java
+- Connect.java
 #### Helper
-##### AccountHelper.java
-##### AdminHelper.java
-##### DestinationHelper.java
-##### TransactionHelper.java
-##### UserHelper.java
+- AccountHelper.java
+- AdminHelper.java
+- DestinationHelper.java
+- TransactionHelper.java
+- UserHelper.java
 #### Model
-##### Account.java
-##### Admin.java
-##### Destination.java
-##### Transaction.java
-##### User.java
+- Account.java
+- Admin.java
+- Destination.java
+- Transaction.java
+- User.java
 #### projectoop
-##### App.java (Entry point)
+- App.java (Entry point)
 
 #### module-info.java
 
