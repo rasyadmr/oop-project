@@ -7,10 +7,10 @@ import Connection.*;
 
 public class DestinationHelper {
     Random rand = new Random();
-    ArrayList<Destination> destinations = new ArrayList<>();
+    public ArrayList<Destination> destinations = new ArrayList<>();
     Connect connection = new Connect();
 
-    private void updateDestinations() {
+    public void updateDestinationsData() {
         destinations.clear();
         String query = "SELECT * FROM destination";
         ResultSet result = connection.execQuery(query);
@@ -29,7 +29,7 @@ public class DestinationHelper {
     }
 
     public String generateDestinationId() {
-        updateDestinations();
+        updateDestinationsData();
 		String result = "DN";
 		
 		for (int i = 0; i < 3; i++) {
@@ -49,11 +49,12 @@ public class DestinationHelper {
 	}
 
     public void createDestination(String destinationName, Integer price) {
+        destinationName = destinationName.toUpperCase();
         String query = "INSERT INTO destination(destinationId, destinationName, price) VALUES ('" + generateDestinationId() + "','" + destinationName + "','" + price + "')";
         connection.executeUpdate(query);
         
         System.out.println("New destination created!");
-        this.updateDestinations();
+        this.updateDestinationsData();
         return;
     }
 }

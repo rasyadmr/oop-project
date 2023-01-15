@@ -52,6 +52,20 @@ public class AccountHelper {
         }
     }
 
+    public Boolean uniqueEmail(ArrayList<Account> dataUser, String email) {
+        if (dataUser.isEmpty()) {
+            return true;
+        }
+
+        for (Account account: dataUser) {
+            if (account.getEmail().equals(email)) {
+                alert.display("Error email", "Email is used, try other");
+                return false;
+            }
+        }
+        return true;
+    }
+
     public ArrayList<Account> updateDataUser(ArrayList<Account> dataUser) {
         dataUser.clear();
         String query = "SELECT * FROM admin";

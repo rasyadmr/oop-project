@@ -10,7 +10,6 @@ public class Connect {
 	private final String CONNECTION = String.format("jdbc:mysql://%s/%s", HOST, DATABASE);
 	
 	private ResultSet rs;
-	
 	private Connection connection;
 	private Statement st;
 

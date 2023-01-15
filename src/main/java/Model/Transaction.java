@@ -2,15 +2,14 @@ package Model;
 
 public class Transaction {
     private Integer quantity, totalPrice;
-    private String transactionId, destinationId, emailUser, emailAdmin;
+    private String transactionId, destinationId, emailUser;
 
-    public Transaction(String transactionId, String destinationId, String emailUser, String emailAdmin, Integer quantity, Integer totalPrice) {
+    public Transaction(String transactionId, String destinationId, String emailUser, Integer quantity, Integer totalPrice) {
         this.transactionId = transactionId;
         this.destinationId = destinationId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.emailUser = emailUser;
-        this.emailAdmin = emailAdmin;
     }
 
     public String getTransactionId() {
@@ -51,14 +50,6 @@ public class Transaction {
 
     public void setEmailUser(String emailUser) {
         this.emailUser = emailUser;
-    }
-
-    public String getEmailAdmin() {
-        return this.emailAdmin;
-    }
-
-    public void setEmailAdmin(String emailAdmin) {
-        this.emailAdmin = emailAdmin;
     }
 
 }

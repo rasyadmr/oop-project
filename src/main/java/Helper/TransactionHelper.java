@@ -10,7 +10,7 @@ public class TransactionHelper {
     Random rand = new Random();
     Connect connection = new Connect();
 
-    private ArrayList<Transaction> updateTransactionData(ArrayList<Transaction> transactions) {
+    public ArrayList<Transaction> updateTransactionData(ArrayList<Transaction> transactions) {
         transactions.clear();
         String query = "SELECT * FROM transaction";
         ResultSet result = connection.execQuery(query);
@@ -20,16 +20,14 @@ public class TransactionHelper {
                 String transactionId = result.getString("transactionId");
                 String destinationId = result.getString("destinationId");
                 String emailUser = result.getString("emailUser");
-                String emailAdmin = result.getString("emailAdmin");
                 Integer quantity = result.getInt("quantity");
                 Integer totalPrice = result.getInt("totalPrice");
 
-                transactions.add(new Transaction(transactionId, destinationId, emailUser, emailAdmin, quantity, totalPrice));
+                transactions.add(new Transaction(transactionId, destinationId, emailUser, quantity, totalPrice));
             }
         } catch (Exception e) {
             e.getMessage();
         }
-
         return transactions;
     }
 
@@ -52,19 +50,20 @@ public class TransactionHelper {
 		return result;
 	}
 
-    public ArrayList<Transaction> createTransaction(ArrayList<Transaction> transactions, Destination destination, User user, Admin admin, Integer quantity) {
+    public ArrayList<Transaction> createTransaction(ArrayList<Transaction> transactions, Destination destination, Account user, Integer quantity) {
         double totalPrice = (double)destination.getPrice() * quantity;
 
-        if (user.getUserStatus().equals("Member")) {
-            totalPrice *= 0.9;
+        if (user instanceof User) {
+            if (((User)user).getUserStatus().equals("Member")) {
+                totalPrice *= 0.9;
+            }
         }
 
-        Transaction result = new Transaction(generateTransactionId(transactions), destination.getDestinationId(), user.getEmail(), admin.getEmail(), quantity, (int)totalPrice);
+        Transaction result = new Transaction(generateTransactionId(transactions), destination.getDestinationId(), user.getEmail(), quantity, (int)totalPrice);
         if (ConfirmBox.confirmBooking(result, destination)) {
-            String query = "INSERT INTO transaction(transactionId, destinationId, emailUser, emailAdmin, quantity, totalPrice) VALUES ('" + result.getTransactionId() + "','" + result.getDestinationId() + "','" + result.getEmailUser() + "','" + result.getEmailAdmin() + "','" + result.getQuantity() + "','" + result.getQuantity() + "')";
+            String query = "INSERT INTO transaction(transactionId, destinationId, emailUser, quantity, totalPrice) VALUES ('" + result.getTransactionId() + "','" + result.getDestinationId() + "','" + result.getEmailUser() + "','" + result.getQuantity() + "','" + result.getTotalPrice() + "')";
             Connect database = new Connect();
             database.executeUpdate(query);
-            transactions.add(result);
             System.out.println("New transaction created!");
         }
 

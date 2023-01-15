@@ -9,20 +9,24 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
     Stage window;
+    AlertBox alertBox = new AlertBox();
+    ConfirmBox confirmBox = new ConfirmBox();
     Account userSession;
     Table table = new Table();
     ArrayList<Account> dataUser = new ArrayList<>();
@@ -30,9 +34,14 @@ public class App extends Application {
     AccountHelper accountHelper = new AccountHelper();
     AdminHelper adminHelper = new AdminHelper();
     UserHelper userHelper = new UserHelper();
+    TransactionHelper transactionHelper = new TransactionHelper();
+    DestinationHelper destinationHelper = new DestinationHelper();
     
     @Override
     public void start(Stage primaryStage) throws Exception {
+        dataUser = accountHelper.updateDataUser(dataUser);
+        dataTransaction = transactionHelper.updateTransactionData(dataTransaction);
+
         window = primaryStage;
         window.setTitle("TicketID");
 
@@ -69,39 +78,95 @@ public class App extends Application {
         window.show();
     }
     
-    public void appUI()
-    {
-        if (userSession instanceof User) {
+    public void appUI(Boolean isAdmin) {
+        if (!isAdmin) {
             // TODO User menu
-        } else {
-            // TODO Admin menu
-            Label usernameLabel = new Label(userSession.getEmail());
-            GridPane.setConstraints(usernameLabel, 0, 0);
+            Label usernameLabel = new Label("Welcome " + userSession.getEmail() + "!");
 
-            Label passwordLabel = new Label(userSession.getPassword());
-            GridPane.setConstraints(passwordLabel, 0, 1);
+            Button buyButton = new Button("Buy ticket");
+            buyButton.setOnAction(e -> goBuyMenu());
+            buyButton.setMinWidth(100);
 
-            Button viewUser = new Button("View user");
-            viewUser.setOnAction(e -> table.displayUser(dataUser));
-            viewUser.setMinWidth(200);
-            GridPane.setConstraints(viewUser, 0, 2);
+            Button upgradeButton = new Button("Upgrade member");
+            upgradeButton.setOnAction(e -> {
+                Boolean confirm = confirmBox.confirm("Upgrade member", "Are you sure want to become a member?");
+                if (confirm) {
+                    userHelper.upgradeUser(dataUser, userSession.getEmail());
+                }
+            });
+            upgradeButton.setMinWidth(100);
 
-            Button viewAdmin = new Button("View admin");
-            viewAdmin.setOnAction(e -> table.displayAdmin(dataUser));
-            viewAdmin.setMinWidth(200);
-            GridPane.setConstraints(viewAdmin, 0, 3);
+            Button logout = new Button("Log out");
+            logout.setOnAction(e -> onClickLogout());
+            logout.setMinWidth(100);
             
             GridPane grid = new GridPane();
-            grid.setCenterShape(false);
+            grid.setCenterShape(true);
             grid.setPadding(new Insets(10, 20, 10, 20));
             grid.setHgap(10);
             grid.setVgap(5);
             grid.setAlignment(Pos.CENTER);
             
-            grid.getChildren().addAll(viewAdmin, viewUser, usernameLabel, passwordLabel);
+            grid.add(buyButton, 0, 0);
+            grid.add(upgradeButton, 1, 0);
+            grid.add(logout, 2, 0);
+
+            grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+            VBox vbox = new VBox();
+            vbox.setAlignment(Pos.CENTER);
+            vbox.getChildren().addAll(usernameLabel, grid);
+            vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+            Scene scene = new Scene(vbox, 640, 360);
+            window.setScene(scene);
+            window.setResizable(false);
+            window.show();
+        } else {
+            // TODO Admin menu
+            Label usernameLabel = new Label("Welcome " + userSession.getEmail() + "!");
+
+            Button viewUser = new Button("View user");
+            viewUser.setOnAction(e -> table.displayUser(dataUser));
+            viewUser.setMinWidth(100);
+
+            Button viewAdmin = new Button("View admin");
+            viewAdmin.setOnAction(e -> table.displayAdmin(dataUser));
+            viewAdmin.setMinWidth(100);
+
+            Button viewDestionation = new Button("View destination");
+            viewDestionation.setOnAction(e -> table.displayDestionation());
+            viewDestionation.setMinWidth(100);
+
+            Button viewTransaction = new Button("View transaction");
+            viewTransaction.setOnAction(e -> table.displayTransaction(dataTransaction));
+            viewTransaction.setMinWidth(100);
+
+            Button logout = new Button("Log out");
+            logout.setOnAction(e -> onClickLogout());
+            logout.setMinWidth(100);
+            
+            GridPane grid = new GridPane();
+            grid.setCenterShape(true);
+            grid.setPadding(new Insets(10, 20, 10, 20));
+            grid.setHgap(10);
+            grid.setVgap(5);
+            grid.setAlignment(Pos.CENTER);
+            
+            grid.add(viewUser, 0, 0);
+            grid.add(viewAdmin, 1, 0);
+            grid.add(viewDestionation, 2, 0);
+            grid.add(viewTransaction, 3, 0);
+            grid.add(logout, 4, 0);
+
             grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
             
-            Scene scene = new Scene(grid, 640, 360);
+            VBox vbox = new VBox();
+            vbox.setAlignment(Pos.CENTER);
+            vbox.getChildren().addAll(usernameLabel, grid);
+            vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+            Scene scene = new Scene(vbox, 640, 360);
             window.setScene(scene);
             window.setResizable(false);
             window.show();
@@ -109,8 +174,7 @@ public class App extends Application {
 
     }
     
-    public void goToLoginUI()
-    {
+    public void goToLoginUI() {
         GridPane grid = new GridPane();
         grid.setCenterShape(false);
         grid.setPadding(new Insets(10, 20, 10, 20));
@@ -122,7 +186,7 @@ public class App extends Application {
         Label emailLabel = new Label("Email: ");
         GridPane.setConstraints(emailLabel, 0, 0);
         TextField emailInput = new TextField();
-        emailInput.setPromptText("Username");
+        emailInput.setPromptText("email@gmail.com");
         GridPane.setConstraints(emailInput, 1, 0);
         
         // Password
@@ -199,23 +263,108 @@ public class App extends Application {
         window.show();
     }
 
+    public void goBuyMenu() {
+        destinationHelper.updateDestinationsData();
+        ArrayList<Destination> destinationData = destinationHelper.destinations;
+
+        GridPane grid = new GridPane();
+        grid.setCenterShape(false);
+        grid.setPadding(new Insets(10, 20, 10, 20));
+        grid.setHgap(10);
+        grid.setVgap(5);
+        grid.setAlignment(Pos.CENTER);
+
+        ComboBox<String> pilihDestinasi = new ComboBox<>();
+        // pilihDestinasi.getItems().addAll("Dufan", "Candi Borobudur", "Taman Mini");
+        pilihDestinasi.setPromptText("Pilih destinasi!");
+        for (Destination destination: destinationData) {
+            pilihDestinasi.getItems().add(destination.getDestinationName());
+        }
+
+        Spinner<Integer> pilihJumlahTiket = new Spinner<>(1, 10, 1);
+        
+        Button buyButton = new Button("Buy");
+        buyButton.setOnAction(e -> {
+            Boolean buy = false;
+            for (Destination destination: destinationData) {
+                if (destination.getDestinationName().equalsIgnoreCase(pilihDestinasi.getValue())) {
+                    dataTransaction = transactionHelper.createTransaction(dataTransaction, destination, userSession, pilihJumlahTiket.getValue());
+                    buy = true;
+                    break;
+                } else if (destinationData.indexOf(destination) == destinationData.size() - 1) {
+                    alertBox.display("Error booking", "Destination is unknown");
+                }
+            }
+
+            if (buy) {
+                appUI(false);
+            } else {
+                goBuyMenu();
+            }
+        });
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(e -> appUI(false));
+        cancelButton.setAlignment(Pos.CENTER_LEFT);
+
+        grid.add(pilihDestinasi, 0, 0);
+        grid.add(pilihJumlahTiket, 1, 0);
+        grid.add(buyButton, 1, 1);
+        grid.add(cancelButton, 0, 1);
+
+        grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+        Scene scene = new Scene(grid, 640, 360);
+        window.setScene(scene);
+        window.setResizable(false);
+        window.show();
+    }
+
     public void onClickLogin(String email, String password) {
         AccountHelper accountHelper = new AccountHelper();
+        Boolean admin = false;
+
+        for (Account account: dataUser) {
+            if (account.getEmail().equals(email)) {
+                if (account instanceof Admin) {
+                    admin = true;
+                    break;
+                }
+                break;
+            }
+        }
 
         if (accountHelper.logging(dataUser, email, password)) {
             userSession = new Account(email, password);
-            appUI();
+            if (admin) {
+                appUI(true);
+            } else {
+                appUI(false);
+            }
         } else {
             goToLoginUI();
         }
     }
 
     public void onClickRegister(String email, String password, String username, String phone) {
+        if (email.isEmpty() || password.isEmpty() || username.isEmpty() || phone.isEmpty()) {
+            alertBox.display("Error", "Please input data correctly");
+            goToRegisterUI();
+            return;
+        }
+
         if (ConfirmBox.confirmRegistration("Confirm data input", email, password, username)) {
             dataUser = userHelper.createUser(dataUser, email, password, username, phone);
             goToLoginUI();
         } else {
             goToRegisterUI();
+        }
+    }
+
+    public void onClickLogout() {
+        userSession = null;
+        try {
+            start(window);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

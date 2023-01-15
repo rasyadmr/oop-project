@@ -1,10 +1,12 @@
 package Components;
 
 import Model.*;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,8 +38,10 @@ public class ConfirmBox {
         });
 
         VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(label, yesButton, noButton);
         layout.setAlignment(Pos.CENTER);
+        layout.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
@@ -79,9 +83,11 @@ public class ConfirmBox {
         });
 
         VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(emailLabel, usernameLabel, yesButton, noButton);
         layout.setAlignment(Pos.CENTER);
-
+        layout.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+        
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
@@ -106,9 +112,6 @@ public class ConfirmBox {
         Label emailUserLabel = new Label();
         emailUserLabel.setText("Email user: " + transaction.getEmailUser());
 
-        Label emailAdminLabel = new Label();
-        emailAdminLabel.setText("Email admin: " + transaction.getEmailAdmin());
-
         Label quantityLabel = new Label();
         quantityLabel.setText("Quantity: " + transaction.getQuantity());
 
@@ -131,8 +134,10 @@ public class ConfirmBox {
         });
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(transactionIdLabel, destinationLabel, emailUserLabel, emailAdminLabel, quantityLabel, totalPriceLabel, yesButton, noButton);
+        layout.setPadding(new Insets(10, 10, 10, 10));
+        layout.getChildren().addAll(transactionIdLabel, destinationLabel, emailUserLabel, quantityLabel, totalPriceLabel, yesButton, noButton);
         layout.setAlignment(Pos.CENTER);
+        layout.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
