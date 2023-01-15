@@ -23,14 +23,6 @@ public class UserHelper {
         return accountHelper.updateDataUser(dataUser);
     }
 
-    public ArrayList<Account> deleteUser(ArrayList<Account> dataUser, String email) {
-        String query = "DELETE FROM user WHERE email = '" + email + "'";
-        database.executeUpdate(query);
-
-        System.out.println("User deleted!");
-        return accountHelper.updateDataUser(dataUser);
-    }
-
     public ArrayList<Account> upgradeUser(ArrayList<Account> dataUser, String email) {
         for (Account account: dataUser) {
             if (account.getEmail().equals(email)) {
@@ -46,5 +38,18 @@ public class UserHelper {
 
         System.out.println("User successfully upgraded!");
         return accountHelper.updateDataUser(dataUser);
+    }
+
+    public User findByEmail(ArrayList<Account> dataUser, String email) {
+        if (!accountHelper.validateEmail(email)) {
+            return null;
+        }
+        
+        for (Account item : dataUser) {
+            if (item.getEmail().equals(email) && item instanceof User) {
+                return (User)item;
+            }
+        }
+        return null;
     }
 }

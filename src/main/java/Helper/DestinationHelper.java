@@ -44,7 +44,6 @@ public class DestinationHelper {
 				}
 			}
 		}
-
 		return result;
 	}
 

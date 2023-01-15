@@ -19,12 +19,13 @@ public class AdminHelper {
         return accountHelper.updateDataUser(dataUser);
     }
 
-    public ArrayList<Account> promoteUser(ArrayList<Account> dataUser, User user) {
-        String email = user.getEmail();
-        String password = user.getPassword();
-        String username = user.getUsername();
-        dataUser = userHelper.deleteUser(dataUser, user.getEmail());
+    public ArrayList<Account> promoteUser(ArrayList<Account> dataUser, String email) {
+        User user = userHelper.findByEmail(dataUser, email);
+        String emailUser = user.getEmail();
+        String passwordUser = user.getPassword();
+        String usernameUser = user.getUsername();
+        dataUser = accountHelper.deleteUser(dataUser, emailUser);
 
-        return createAdmin(dataUser, email, password, username);
+        return createAdmin(dataUser, emailUser, passwordUser, usernameUser);
     }
 }

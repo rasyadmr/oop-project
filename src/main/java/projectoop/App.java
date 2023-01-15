@@ -20,11 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -75,16 +70,13 @@ public class App extends Application {
         Group image = new Group(imageview);
         GridPane.setConstraints(image, 0, 0);
         
-        //button
         Button loginButton = new Button("Login");
         loginButton.setMinWidth(100);
-        loginButton.setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         GridPane.setConstraints(loginButton, 1, 0);
         loginButton.setOnAction(e -> goToLoginUI());
         
         Button registerButton = new Button("Register");
         registerButton.setMinWidth(100);
-        registerButton.setBorder(new Border(new BorderStroke(Color.ORANGE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         GridPane.setConstraints(registerButton, 2, 0);
         registerButton.setOnAction(e -> goToRegisterUI());
 
@@ -100,7 +92,6 @@ public class App extends Application {
     
     public void appUI(Boolean isAdmin) {
         if (!isAdmin) {
-            // TODO User menu
             Label usernameLabel = new Label("Welcome " + userSession.getEmail() + "!");
 
             Button buyButton = new Button("Buy ticket");
@@ -143,7 +134,6 @@ public class App extends Application {
             window.setResizable(false);
             window.show();
         } else {
-            // TODO Admin menu
             Label usernameLabel = new Label("Welcome " + userSession.getEmail() + "!");
 
             Button viewUser = new Button("View user");
@@ -202,21 +192,18 @@ public class App extends Application {
         grid.setVgap(5);
         grid.setAlignment(Pos.CENTER);
 
-        // Username
         Label emailLabel = new Label("Email: ");
         GridPane.setConstraints(emailLabel, 0, 0);
         TextField emailInput = new TextField();
         emailInput.setPromptText("email@gmail.com");
         GridPane.setConstraints(emailInput, 1, 0);
         
-        // Password
         Label passwordLabel = new Label("Password: ");
         GridPane.setConstraints(passwordLabel, 0, 1);
         PasswordField passwordInput = new PasswordField();
         passwordInput.setPromptText("Password");
         GridPane.setConstraints(passwordInput, 1, 1);
         
-        // Button
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e -> onClickLogin(emailInput.getText(), passwordInput.getText()));
         
@@ -295,7 +282,6 @@ public class App extends Application {
         grid.setAlignment(Pos.CENTER);
 
         ComboBox<String> pilihDestinasi = new ComboBox<>();
-        // pilihDestinasi.getItems().addAll("Dufan", "Candi Borobudur", "Taman Mini");
         pilihDestinasi.setPromptText("Pilih destinasi!");
         for (Destination destination: destinationData) {
             pilihDestinasi.getItems().add(destination.getDestinationName());

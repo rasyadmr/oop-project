@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 public class Table {
     AlertBox alertBox = new AlertBox();
     DestinationHelper destinationHelper = new DestinationHelper();
+    AccountHelper accountHelper = new AccountHelper();
+    AdminHelper adminHelper = new AdminHelper();
 
     public void displayUser(ArrayList<Account> dataUser) {
         Stage window = new Stage();
@@ -54,7 +56,34 @@ public class Table {
             }
         }
 
-        VBox vbox = new VBox(tableView);
+        TextField emailInput = new TextField();
+        emailInput.setPromptText("Email");
+        emailInput.setMinWidth(100);
+
+        Button removeButton = new Button();
+        removeButton.setText("Remove");
+
+        Button adminButton = new Button();
+        adminButton.setText("Promote");
+
+        removeButton.setOnAction(e -> {
+            accountHelper.deleteUser(dataUser, emailInput.getText());
+            displayUser(dataUser);
+            return;
+        });
+        adminButton.setOnAction(e -> {
+            adminHelper.promoteUser(dataUser, emailInput.getText());
+            displayUser(dataUser);
+            return;
+        });
+
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(10, 10, 10, 10));
+        hbox.setSpacing(10);
+        hbox.getChildren().addAll(emailInput, removeButton, adminButton);
+
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(tableView, hbox);
         Scene scene = new Scene(vbox, 478, 400);
         window.setScene(scene);
         window.show();
@@ -64,6 +93,7 @@ public class Table {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("View admin");
+        accountHelper.updateDataUser(dataUser);
         TableView<Admin> tableView = new TableView<>();
 
         TableColumn<Admin, String> column1 = new TableColumn<>("Email");
@@ -120,14 +150,16 @@ public class Table {
         Button addButton = new Button();
         addButton.setText("Add destination");
 
-        try {
-            addButton.setOnAction(e -> destinationHelper.createDestination(destinationNameInput.getText(), Integer.parseInt(priceInput.getText())));
-        } catch (Exception e) {
-            e.getMessage();
-            alertBox.display("Error", "Price must be numerical!");
-        }
+        addButton.setOnAction(e -> {
+            try {
+                destinationHelper.createDestination(destinationNameInput.getText(), Integer.parseInt(priceInput.getText()));
+                displayDestionation();
+                return;
+            } catch (Exception ex) {
+                alertBox.display("Error", "Price must be numerical!");
+            }
+        });
         
-
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 10, 10, 10));
         hbox.setSpacing(10);

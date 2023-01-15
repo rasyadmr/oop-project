@@ -61,9 +61,6 @@ public class ConfirmBox {
         Label emailLabel = new Label();
         emailLabel.setText("Email: " + email);
 
-        // Label label2 = new Label();
-        // label2.setText(password);
-
         Label usernameLabel = new Label();
         usernameLabel.setText("Username: " + username);
 
@@ -107,7 +104,7 @@ public class ConfirmBox {
         transactionIdLabel.setText("ID: " + transaction.getTransactionId());
 
         Label destinationLabel = new Label();
-        destinationLabel.setText("Destionation Location: " + destination.getDestinationName());
+        destinationLabel.setText("Destination Location: " + destination.getDestinationName());
 
         Label emailUserLabel = new Label();
         emailUserLabel.setText("Email user: " + transaction.getEmailUser());

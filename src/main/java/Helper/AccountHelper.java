@@ -103,6 +103,18 @@ public class AccountHelper {
         return dataUser;
     }
 
+    public ArrayList<Account> deleteUser(ArrayList<Account> dataUser, String email) {
+        if (!validateEmail(email)) {
+            return dataUser;
+        }
+
+        String query = "DELETE FROM user WHERE email = '" + email + "'";
+        connection.executeUpdate(query);
+
+        System.out.println("User deleted!");
+        return updateDataUser(dataUser);
+    }
+
     public Boolean logging(ArrayList<Account> dataUser, String email, String password) {
         if (!validateEmail(email)) {
             return false;
