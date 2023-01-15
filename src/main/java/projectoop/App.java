@@ -4,6 +4,7 @@ import java.util.*;
 import Components.*;
 import Helper.*;
 import Model.*;
+import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -82,6 +83,15 @@ public class App extends Application {
 
         grid.getChildren().addAll(image, loginButton, registerButton);
         grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(new Duration(1000));
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.setCycleCount(1);
+        fade.setAutoReverse(false);
+        fade.setNode(grid);
+        fade.play();
 
         Scene scene = new Scene(grid, 640, 360);
         window.setScene(scene);
