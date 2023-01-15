@@ -1,8 +1,8 @@
 package Helper;
 
 import java.util.*;
-import Connection.Connect;
-import Model.Account;
+import Connection.*;
+import Model.*;
 
 public class UserHelper {
     Connect database = new Connect();
@@ -13,7 +13,7 @@ public class UserHelper {
         String query = "INSERT INTO user(email, password, username, phoneNumber, userStatus) VALUES ('" + email + "','" + password + "','" + username + "','" + phoneNumber + "','Normal')";
         database.executeUpdate(query);
         
-        System.out.println("User created!");
+        System.out.println("New user created!");
         return accountHelper.updateDataUser(dataUser);
     }
 

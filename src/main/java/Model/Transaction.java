@@ -1,10 +1,10 @@
 package Model;
 
 public class Transaction {
-    private Integer transactionId, destinationId, quantity, totalPrice;
-    private String emailUser, emailAdmin;
+    private Integer quantity, totalPrice;
+    private String transactionId, destinationId, emailUser, emailAdmin;
 
-    public Transaction(Integer transactionId, Integer destinationId, Integer quantity, Integer totalPrice, String emailUser, String emailAdmin) {
+    public Transaction(String transactionId, String destinationId, String emailUser, String emailAdmin, Integer quantity, Integer totalPrice) {
         this.transactionId = transactionId;
         this.destinationId = destinationId;
         this.quantity = quantity;
@@ -13,19 +13,19 @@ public class Transaction {
         this.emailAdmin = emailAdmin;
     }
 
-    public Integer getTransactionId() {
+    public String getTransactionId() {
         return this.transactionId;
     }
 
-    public void setTransactionId(Integer transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
-    public Integer getDestinationId() {
+    public String getDestinationId() {
         return this.destinationId;
     }
 
-    public void setDestinationId(Integer destinationId) {
+    public void setDestinationId(String destinationId) {
         this.destinationId = destinationId;
     }
 

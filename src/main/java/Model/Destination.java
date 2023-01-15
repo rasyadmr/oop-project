@@ -1,20 +1,20 @@
 package Model;
 
 public class Destination {
-    private Integer destinationId, price;
-    private String destinationName;
+    private Integer price;
+    private String destinationId, destinationName;
 
-    public Destination(Integer destinationId, Integer price, String destinationName) {
+    public Destination(String destinationId, String destinationName, Integer price) {
         this.destinationId = destinationId;
         this.price = price;
         this.destinationName = destinationName;
     }
 
-    public Integer getDestinationId() {
+    public String getDestinationId() {
         return this.destinationId;
     }
 
-    public void setDestinationId(Integer destinationId) {
+    public void setDestinationId(String destinationId) {
         this.destinationId = destinationId;
     }
 

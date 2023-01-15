@@ -1,5 +1,6 @@
 package Components;
 
+import Model.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -79,6 +80,58 @@ public class ConfirmBox {
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(emailLabel, usernameLabel, yesButton, noButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+
+        return answer;
+    }
+
+    public static boolean confirmBooking(Transaction transaction, Destination destination) {
+        Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Payment confirmation");
+        window.setMinWidth(250);
+        window.setMinHeight(200);
+
+        Label transactionIdLabel = new Label();
+        transactionIdLabel.setText("ID: " + transaction.getTransactionId());
+
+        Label destinationLabel = new Label();
+        destinationLabel.setText("Destionation Location: " + destination.getDestinationName());
+
+        Label emailUserLabel = new Label();
+        emailUserLabel.setText("Email user: " + transaction.getEmailUser());
+
+        Label emailAdminLabel = new Label();
+        emailAdminLabel.setText("Email admin: " + transaction.getEmailAdmin());
+
+        Label quantityLabel = new Label();
+        quantityLabel.setText("Quantity: " + transaction.getQuantity());
+
+        Label totalPriceLabel = new Label();
+        totalPriceLabel.setText("Total price: " + transaction.getTotalPrice());
+
+        Button yesButton = new Button("Yes");
+        yesButton.setMinWidth(100);
+        Button noButton = new Button("No");
+        noButton.setMinWidth(100);
+
+        yesButton.setOnAction(e -> {
+            answer = true;
+            window.close();
+        });
+
+        noButton.setOnAction(e -> {
+            answer = false;
+            window.close();
+        });
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(transactionIdLabel, destinationLabel, emailUserLabel, emailAdminLabel, quantityLabel, totalPriceLabel, yesButton, noButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);

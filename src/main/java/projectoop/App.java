@@ -1,12 +1,8 @@
 package projectoop;
 
 import java.util.*;
-
-import Components.ConfirmBox;
-import Components.Table;
-import Helper.AccountHelper;
-import Helper.AdminHelper;
-import Helper.UserHelper;
+import Components.*;
+import Helper.*;
 import Model.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -22,15 +18,15 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
     Stage window;
+    Account userSession;
     Table table = new Table();
     ArrayList<Account> dataUser = new ArrayList<>();
-    Account userSession;
+    ArrayList<Transaction> dataTransaction = new ArrayList<>();
     AccountHelper accountHelper = new AccountHelper();
     AdminHelper adminHelper = new AdminHelper();
     UserHelper userHelper = new UserHelper();

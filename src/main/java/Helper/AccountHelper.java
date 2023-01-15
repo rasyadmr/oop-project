@@ -1,10 +1,9 @@
 package Helper;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import Components.AlertBox;
-import Connection.Connect;
+import java.sql.*;
+import java.util.*;
+import Components.*;
+import Connection.*;
 import Model.*;
 
 public class AccountHelper {

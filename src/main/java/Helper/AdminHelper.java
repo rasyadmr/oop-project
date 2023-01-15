@@ -1,8 +1,7 @@
 package Helper;
 
-import java.util.ArrayList;
-
-import Connection.Connect;
+import java.util.*;
+import Connection.*;
 import Model.*;
 
 public class AdminHelper {
@@ -16,7 +15,7 @@ public class AdminHelper {
         Connect database = new Connect();
         database.executeUpdate(query);
         
-        System.out.println("User created!");
+        System.out.println("New admin created!");
         return accountHelper.updateDataUser(dataUser);
     }
 
@@ -26,7 +25,6 @@ public class AdminHelper {
         String username = user.getUsername();
         dataUser = userHelper.deleteUser(dataUser, user.getEmail());
 
-        dataUser = createAdmin(dataUser, email, password, username);
-        return dataUser;
+        return createAdmin(dataUser, email, password, username);
     }
 }
