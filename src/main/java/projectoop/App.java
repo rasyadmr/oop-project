@@ -139,7 +139,22 @@ public class App extends Application {
             vbox.getChildren().addAll(usernameLabel, grid);
             vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
-            Scene scene = new Scene(vbox, 640, 360);
+            FadeTransition fade = new FadeTransition();
+            fade.setDuration(new Duration(500));
+            fade.setFromValue(0);
+            fade.setToValue(1);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.setNode(vbox);
+            fade.play();
+    
+            GridPane pane = new GridPane();
+            pane.getChildren().add(vbox);
+            pane.setBackground(null);
+            pane.setAlignment(Pos.CENTER);
+            pane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+    
+            Scene scene = new Scene(pane, 640, 360);
             window.setScene(scene);
             window.setResizable(false);
             window.show();
@@ -186,7 +201,22 @@ public class App extends Application {
             vbox.getChildren().addAll(usernameLabel, grid);
             vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
-            Scene scene = new Scene(vbox, 640, 360);
+            FadeTransition fade = new FadeTransition();
+            fade.setDuration(new Duration(500));
+            fade.setFromValue(0);
+            fade.setToValue(1);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.setNode(vbox);
+            fade.play();
+    
+            GridPane pane = new GridPane();
+            pane.getChildren().add(vbox);
+            pane.setBackground(null);
+            pane.setAlignment(Pos.CENTER);
+            pane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+    
+            Scene scene = new Scene(pane, 640, 360);
             window.setScene(scene);
             window.setResizable(false);
             window.show();
@@ -224,8 +254,23 @@ public class App extends Application {
 
         grid.getChildren().addAll(emailLabel, emailInput, passwordLabel, passwordInput, loginButton, registerButton);
         grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
-        
-        Scene scene = new Scene(grid, 640, 360);
+
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(new Duration(500));
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.setCycleCount(1);
+        fade.setAutoReverse(false);
+        fade.setNode(grid);
+        fade.play();
+
+        GridPane pane = new GridPane();
+        pane.getChildren().add(grid);
+        pane.setBackground(null);
+        pane.setAlignment(Pos.CENTER);
+        pane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+        Scene scene = new Scene(pane, 640, 360);
         window.setScene(scene);
         window.setResizable(false);
         window.show();
@@ -274,7 +319,22 @@ public class App extends Application {
         grid.getChildren().addAll(emailLabel, emailInput, usernameLabel, usernameInput, passwordLabel, passwordInput, phoneLabel, phoneInput, loginButton, registerButton);
         grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
 
-        Scene scene = new Scene(grid, 640, 360);
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(new Duration(500));
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.setCycleCount(1);
+        fade.setAutoReverse(false);
+        fade.setNode(grid);
+        fade.play();
+
+        GridPane pane = new GridPane();
+        pane.getChildren().add(grid);
+        pane.setBackground(null);
+        pane.setAlignment(Pos.CENTER);
+        pane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+        Scene scene = new Scene(pane, 640, 360);
         window.setScene(scene);
         window.setResizable(false);
         window.show();
@@ -328,7 +388,23 @@ public class App extends Application {
         grid.add(cancelButton, 0, 1);
 
         grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
-        Scene scene = new Scene(grid, 640, 360);
+
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(new Duration(500));
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.setCycleCount(1);
+        fade.setAutoReverse(false);
+        fade.setNode(grid);
+        fade.play();
+
+        GridPane pane = new GridPane();
+        pane.getChildren().add(grid);
+        pane.setBackground(null);
+        pane.setAlignment(Pos.CENTER);
+        pane.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+
+        Scene scene = new Scene(pane, 640, 360);
         window.setScene(scene);
         window.setResizable(false);
         window.show();

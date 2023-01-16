@@ -167,7 +167,7 @@ public class Table {
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(tableView, hbox);
-        Scene scene = new Scene(vbox, 400, 400);
+        Scene scene = new Scene(vbox, 600, 400);
         window.setScene(scene);
         window.show();
     }
@@ -204,7 +204,7 @@ public class Table {
         }
 
         VBox vbox = new VBox(tableView);
-        Scene scene = new Scene(vbox, 400, 400);
+        Scene scene = new Scene(vbox, 600, 400);
         window.setScene(scene);
         window.show();
     }
