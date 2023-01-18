@@ -354,19 +354,26 @@ public class App extends Application {
         grid.setHgap(10);
         grid.setVgap(5);
         grid.setAlignment(Pos.CENTER);
+        
+        Label hargaLabel = new Label("@Rp. 0");
+        hargaLabel.setMinWidth(80);
 
         ComboBox<String> pilihDestinasi = new ComboBox<>();
-        pilihDestinasi.setMinWidth(200);
+        pilihDestinasi.setMinWidth(150);
         pilihDestinasi.setPromptText("Pilih destinasi");
         for (Destination destination: destinationData) {
             pilihDestinasi.getItems().add(destination.getDestinationName());
         }
+        pilihDestinasi.setOnAction(e -> {
+            Destination temp = destinationHelper.findByName(pilihDestinasi.getValue());
+            hargaLabel.setText("@Rp. " + temp.getPrice());
+        });
 
         Spinner<Integer> pilihJumlahTiket = new Spinner<>(1, 10, 1);
-        pilihJumlahTiket.setMinWidth(200);
+        pilihJumlahTiket.setMinWidth(150);
         
         Button buyButton = new Button("Buy");
-        buyButton.setMinWidth(200);
+        buyButton.setMinWidth(150);
         buyButton.setOnAction(e -> {
             Boolean buy = false;
             for (Destination destination: destinationData) {
@@ -386,12 +393,13 @@ public class App extends Application {
             }
         });
         Button cancelButton = new Button("Cancel");
-        cancelButton.setMinWidth(200);
+        cancelButton.setMinWidth(150);
         cancelButton.setOnAction(e -> appUI(false));
 
         grid.add(pilihDestinasi, 0, 0);
-        grid.add(pilihJumlahTiket, 1, 0);
-        grid.add(buyButton, 1, 1);
+        grid.add(hargaLabel, 1, 0);
+        grid.add(pilihJumlahTiket, 2, 0);
+        grid.add(buyButton, 2, 1);
         grid.add(cancelButton, 0, 1);
 
         grid.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));

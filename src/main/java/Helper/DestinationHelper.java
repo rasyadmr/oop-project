@@ -56,4 +56,17 @@ public class DestinationHelper {
         this.updateDestinationsData();
         return;
     }
+
+    public Destination findByName(String name) {
+        if (destinations.isEmpty()) {
+            return null;
+        }
+        
+        for (Destination item : destinations) {
+            if (item.getDestinationName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
+    }
 }
