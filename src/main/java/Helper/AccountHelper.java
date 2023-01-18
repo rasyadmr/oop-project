@@ -37,7 +37,14 @@ public class AccountHelper {
         return false;
     }
 
-    public Boolean validateInput(String email, String username, String password) {
+    private Boolean validatePhone(String phoneNumber) {
+        if (phoneNumber.length() < 8 || phoneNumber.length() > 20) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean validateInput(String email, String username, String password, String phoneNumber) {
         if (!validateEmail(email)) {
             alert.display("Invalid", "Invalid email!");
             return false;
@@ -46,6 +53,9 @@ public class AccountHelper {
             return false;
         } else if (!validatePassword(password)) {
             alert.display("Invalid", "Password is too short or too long!");
+            return false;
+        } else if (!validatePhone(phoneNumber)) {
+            alert.display("Invalid", "Phone number is too short or too long!");
             return false;
         } else {
             return true;

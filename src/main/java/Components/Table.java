@@ -68,11 +68,13 @@ public class Table {
 
         removeButton.setOnAction(e -> {
             accountHelper.deleteUser(dataUser, emailInput.getText());
+            window.close();
             displayUser(dataUser);
             return;
         });
         adminButton.setOnAction(e -> {
             adminHelper.promoteUser(dataUser, emailInput.getText());
+            window.close();
             displayUser(dataUser);
             return;
         });
@@ -86,7 +88,7 @@ public class Table {
         vbox.getChildren().addAll(tableView, hbox);
         Scene scene = new Scene(vbox, 478, 400);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
 
     public void displayAdmin(ArrayList<Account> dataUser) {
@@ -153,6 +155,7 @@ public class Table {
         addButton.setOnAction(e -> {
             try {
                 destinationHelper.createDestination(destinationNameInput.getText(), Integer.parseInt(priceInput.getText()));
+                window.close();
                 displayDestionation();
                 return;
             } catch (Exception ex) {
@@ -169,7 +172,7 @@ public class Table {
         vbox.getChildren().addAll(tableView, hbox);
         Scene scene = new Scene(vbox, 600, 400);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
 
     public void displayTransaction(ArrayList<Transaction> dataTransaction) {
@@ -206,6 +209,6 @@ public class Table {
         VBox vbox = new VBox(tableView);
         Scene scene = new Scene(vbox, 600, 400);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
     }
 }

@@ -1,6 +1,6 @@
 package Model;
 
-public class Account {
+public abstract class Account {
     private String email, password;
 
     public Account(String email, String password) {

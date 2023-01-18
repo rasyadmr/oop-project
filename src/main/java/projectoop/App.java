@@ -101,6 +101,8 @@ public class App extends Application {
     }
     
     public void appUI(Boolean isAdmin) {
+        dataUser = accountHelper.updateDataUser(dataUser);
+        dataTransaction = transactionHelper.updateTransactionData(dataTransaction);
         if (!isAdmin) {
             Label usernameLabel = new Label("Welcome " + userSession.getEmail() + "!");
 
@@ -225,6 +227,7 @@ public class App extends Application {
     }
     
     public void goToLoginUI() {
+        dataUser = accountHelper.updateDataUser(dataUser);
         GridPane grid = new GridPane();
         grid.setCenterShape(false);
         grid.setPadding(new Insets(10, 20, 10, 20));
@@ -277,6 +280,7 @@ public class App extends Application {
     }
 
     public void goToRegisterUI() {
+        dataUser = accountHelper.updateDataUser(dataUser);
         GridPane grid = new GridPane();
         grid.setCenterShape(false);
         grid.setPadding(new Insets(10, 20, 10, 20));
@@ -294,13 +298,13 @@ public class App extends Application {
         Label usernameLabel = new Label("Username: ");
         GridPane.setConstraints(usernameLabel, 0, 1);
         TextField usernameInput = new TextField();
-        usernameInput.setPromptText("Username");
+        usernameInput.setPromptText("Username [Max. 20 characters]");
         GridPane.setConstraints(usernameInput, 1, 1);
 
         Label passwordLabel = new Label("Password: ");
         GridPane.setConstraints(passwordLabel, 0, 2);
         PasswordField passwordInput = new PasswordField();
-        passwordInput.setPromptText("Password");
+        passwordInput.setPromptText("Password [8 - 20 characters]");
         GridPane.setConstraints(passwordInput, 1, 2);
 
         Label phoneLabel = new Label("Phone number: ");
@@ -352,14 +356,17 @@ public class App extends Application {
         grid.setAlignment(Pos.CENTER);
 
         ComboBox<String> pilihDestinasi = new ComboBox<>();
-        pilihDestinasi.setPromptText("Pilih destinasi!");
+        pilihDestinasi.setMinWidth(200);
+        pilihDestinasi.setPromptText("Pilih destinasi");
         for (Destination destination: destinationData) {
             pilihDestinasi.getItems().add(destination.getDestinationName());
         }
 
         Spinner<Integer> pilihJumlahTiket = new Spinner<>(1, 10, 1);
+        pilihJumlahTiket.setMinWidth(200);
         
         Button buyButton = new Button("Buy");
+        buyButton.setMinWidth(200);
         buyButton.setOnAction(e -> {
             Boolean buy = false;
             for (Destination destination: destinationData) {
@@ -379,8 +386,8 @@ public class App extends Application {
             }
         });
         Button cancelButton = new Button("Cancel");
+        cancelButton.setMinWidth(200);
         cancelButton.setOnAction(e -> appUI(false));
-        cancelButton.setAlignment(Pos.CENTER_LEFT);
 
         grid.add(pilihDestinasi, 0, 0);
         grid.add(pilihJumlahTiket, 1, 0);
@@ -425,10 +432,11 @@ public class App extends Application {
         }
 
         if (accountHelper.logging(dataUser, email, password)) {
-            userSession = new Account(email, password);
             if (admin) {
+                userSession = adminHelper.findByEmail(dataUser, email);
                 appUI(true);
             } else {
+                userSession = userHelper.findByEmail(dataUser, email);
                 appUI(false);
             }
         } else {
@@ -443,7 +451,7 @@ public class App extends Application {
             return;
         }
 
-        if (ConfirmBox.confirmRegistration("Confirm data input", email, password, username)) {
+        if (ConfirmBox.confirmRegistration("Confirm data input", email, password, username) && accountHelper.validateInput(email, username, password, phone)) {
             dataUser = userHelper.createUser(dataUser, email, password, username, phone);
             goToLoginUI();
         } else {

@@ -28,4 +28,17 @@ public class AdminHelper {
 
         return createAdmin(dataUser, emailUser, passwordUser, usernameUser);
     }
+
+    public Admin findByEmail(ArrayList<Account> dataUser, String email) {
+        if (!accountHelper.validateEmail(email)) {
+            return null;
+        }
+        
+        for (Account item : dataUser) {
+            if (item.getEmail().equals(email) && item instanceof Admin) {
+                return (Admin)item;
+            }
+        }
+        return null;
+    }
 }
