@@ -25,7 +25,7 @@ Banyak orang bingung bagaimana cara membeli tiket masuk suatu tempat rekreasi, t
 #### Application Flow: https://www.figma.com/file/zuY2tFoWTeO7J5GKNMTRrM/TicketID?node-id=11%3A10&t=SlW2It3zZpAkqweS-1
 #### Presentation: https://www.canva.com/design/DAFXoKKdf8w/V8IcKPyl2hh06kSI7DiIOQ/view?utm_content=DAFXoKKdf8w&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink
 #### Manual Guide: https://docs.google.com/document/d/13-MLKpDNmRjutsQjVGfgTQ3LzCGeNXCVaAo5Wst7s2Q/edit?usp=sharing
-#### Social Media Post: 
+#### Social Media Post: https://www.linkedin.com/posts/rasyadmr_project-programming-activity-7022596753539420160-Phbm?utm_source=share&utm_medium=member_desktop
 
 ## Features
 1. Login & register account
